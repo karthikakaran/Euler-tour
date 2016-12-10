@@ -1,0 +1,142 @@
+
+CS 4V95.003, CS 5V81.012. Implementation of data structures and algorithms
+Fall 2016
+Optional Project 1
+Thu, Sep 1, 2016
+
+Version 1.0: Initial description (Thu, Sep 1, 8:30 AM).
+
+Due: 11:59 PM, Sun, Sep 11.
+
+Submission procedure:
+Students of CS 4V95 can choose to work on optional projects
+individually or in groups.  Students of CS 5V81 form groups of 3-4
+students for optional projects.  You can form your own groups.  If you
+need help in finding students to form a group, contact the instructor
+(or make a post on the class forum).
+
+Create a folder whose name starts with the netid of the student
+submitting the project (e.g., sxr012015_op1).  Place all files you are
+submitting in that folder.  There is no need to submit binary files
+created by your IDE (such as class files).  Make sure there is a
+"readme" file that explains the contents of the files being submitted.
+Zip the contents into a single zip or rar file.  Upload that file on
+elearning.  Submission can be revised before the deadline.  Only the
+final submission before the deadline will be graded.  Only one member
+of each group needs to submit project.  Include the names of all team
+members in ALL files.
+
+Solve as many problems as you wish:
+
+
+1. Implement Merge Sort (say, from Cormen's book) in Java using generics.
+   Compare its running time on n > 1 million elements with another
+   O(nlogn) algorithm, say for example, sorting using a priority queue:
+
+
+2. Given two linked lists implementing sorted sets, write functions for
+   union, intersection, and set difference of the sets.
+
+    public static<T extends Comparable<? super T>>
+        void intersect(List<T> l1, List<T> l2, List<T> outList) {
+	   // Return elements common to l1 and l2, in sorted order.
+	   // outList is an empty list created by the calling
+           // program and passed as a parameter.
+	   // Function should be efficient whether the List is
+	   // implemented using ArrayList or LinkedList.
+	   // Do not use HashSet/Map or TreeSet/Map or other complex
+           // data structures.
+	}
+
+    public static<T extends Comparable<? super T>>
+        void union(List<T> l1, List<T> l2, List<T> outList) {
+	   // Return the union of l1 and l2, in sorted order.
+	   // Output is a set, so it should have no duplicates.
+	}
+
+    public static<T extends Comparable<? super T>>
+        void difference(List<T> l1, List<T> l2, List<T> outList) {
+	   // Return l1 - l2 (i.e, items in l1 that are not in l2), in sorted order.
+	   // Output is a set, so it should have no duplicates.
+	}
+
+
+3. Suppose large numbers are stored in a list of integers.  Write
+   functions for adding and subtracting large numbers.
+
+   public static void add(List<Integer> x, List<Integer>  y,List<Integer> z, int b) {
+   	  // Return z = x + y.  Numbers are stored using base b.
+	  // The "digits" are stored in the list with the least
+   	  // significant digit first.  For example, if b = 10, then
+	  // the number 709 will be stored as 9 -> 0 -> 7.
+	  // Assume that b is small enough that you will not get any
+	  // overflow of numbers during the operation.
+   }
+
+   public static void subtract(List<Integer> x, List<Integer>  y,List<Integer> z, int b) {
+   	  // Return z = x - y.  Numbers are stored using base b.
+	  // Assume that x >= y.
+   }
+
+
+4. Write the Merge sort algorithm that works on linked lists.  This
+   will be a member function of a linked list class, so that it can
+   work with the internal details of the class.  The function should
+   use only O(log n) extra space (mainly for recursion), and not make
+   copies of elements unnecessarily.  You can start from the
+   SinglyLinkedList class provided or create your own.
+
+   static<T extends Comparable<? super T>> void mergeSort(SortableList<T> lst) { ... }
+
+   Here is a skeleton of SortableList.java:
+
+public class SortableList<T extends Comparable<? super T>> extends SinglyLinkedList<T> {
+    public void merge(SortableList<T> list) {
+    }
+    void mergeSort() {
+    }
+    public static<T extends Comparable<? super T>> void mergeSort(SortableList<T> lst) {
+    }
+}
+
+
+5. Extend the "unzip" algorithm discussed in class to "multiUnzip" on the SinglyLinkedList class:
+
+   void multiUnzip(int k) {
+   	// Rearrange elements of a singly linked list by chaining
+   	// together elements that are k apart.  k=2 is the unzip
+   	// function discussed in class.  If the list has elements
+	// 1..10 in order, after multiUnzip(3), the elements will be
+   	// rearranged as: 1 4 7 10 2 5 8 3 6 9.  Instead if we call
+	// multiUnzip(4), the list 1..10 will become 1 5 9 2 6 10 3 7 4 8.
+   }
+
+
+6. Write recursive and nonrecursive functions for the following tasks:
+   (i) reverse the order of elements of the SinglyLinkedList class
+   (ii) print the elements of the SinglyLinkedList class, in reverse order.
+   Write the code and annotate it with  proper loop invariants.
+
+
+7. Implement a circular list class, where each node stores an integer
+   in the range 1..k, where k <= n, the number of nodes in the list.
+   Note that k is not a constant and it can grow as the lists grow in size.
+   Implement an index as part of the circular lists, such that the
+   following merge operation runs in O(1) time:
+
+   /** Replace "this" list by the merging it with the circular list c.
+    *  If the first node of c stores the integer x, find the node
+    *  of "this" list that stores x.  Imagine if you broke the two
+    *  circular lists at x, creating chains that start and end with x,
+    *  and stuck the two chains together into a circular list again.
+    *  For example, if "this" list is {1,2,3,4,1,3,5,7,3,8} and c = {3,9,8,10}.
+    *  Node 3 appears in "this" chain 3 times.  So, the merge
+    *  operation should change this list to any one of the following
+    *  circular lists in O(1) time: 
+    *  {1,2,3,9,8,10,3,4,1,3,5,7,3,8}, or,
+    *  {1,2,3,4,1,3,9,8,10,3,5,7,3,8}, or,
+    *  {1,2,3,4,1,3,5,7,3,9,8,10,3,8}.
+    */
+   
+   void merge(CircularList c) { /* To Do */
+   }
